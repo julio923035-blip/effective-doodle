@@ -1,0 +1,48 @@
+# =========================
+# estoque.py
+# =========================
+
+from produtos import carregar_produtos, salvar_produtos
+
+
+def entrada_estoque():
+    produtos = carregar_produtos()
+
+    id_produto = input("Digite o ID do produto: ")
+
+    for produto in produtos:
+        if produto["id"] == id_produto:
+
+            quantidade = int(input("Quantidade de entrada: "))
+            produto["quantidade"] += quantidade
+
+            salvar_produtos(produtos)
+
+            print("Entrada registrada com sucesso!")
+            return
+
+    print("Produto não encontrado.")
+
+
+def saida_estoque():
+    produtos = carregar_produtos()
+
+    id_produto = input("Digite o ID do produto: ")
+
+    for produto in produtos:
+        if produto["id"] == id_produto:
+
+            quantidade = int(input("Quantidade de saída: "))
+
+            if quantidade > produto["quantidade"]:
+                print("Estoque insuficiente.")
+                return
+
+            produto["quantidade"] -= quantidade
+
+            salvar_produtos(produtos)
+
+            print("Saída registrada com sucesso!")
+            return
+
+    print("Produto não encontrado.")

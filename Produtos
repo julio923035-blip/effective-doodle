@@ -1,0 +1,64 @@
+#=========================
+# produtos.py
+# =========================
+
+import json
+
+ARQUIVO = "produtos.json"
+
+
+def carregar_produtos():
+    try:
+        with open(ARQUIVO, "r", encoding="utf-8") as arquivo:
+            return json.load(arquivo)
+    except:
+        return []
+
+
+def salvar_produtos(produtos):
+    with open(ARQUIVO, "w", encoding="utf-8") as arquivo:
+        json.dump(produtos, arquivo, indent=4, ensure_ascii=False)
+
+
+def cadastrar_produto():
+    produtos = carregar_produtos()
+
+    id_produto = input("ID do produto: ")
+    nome = input("Nome do produto: ")
+    categoria = input("Categoria: ")
+    quantidade = int(input("Quantidade: "))
+    preco_compra = float(input("Preço de compra: "))
+    preco_venda = float(input("Preço de venda: "))
+    fornecedor = input("Fornecedor: ")
+
+    produto = {
+        "id": id_produto,
+        "nome": nome,
+        "categoria": categoria,
+        "quantidade": quantidade,
+        "preco_compra": preco_compra,
+        "preco_venda": preco_venda,
+        "fornecedor": fornecedor
+    }
+
+    produtos.append(produto)
+    salvar_produtos(produtos)
+
+    print("Produto cadastrado com sucesso!")
+
+
+def listar_produtos():
+    produtos = carregar_produtos()
+
+    if not produtos:
+        print("Nenhum produto cadastrado.")
+        return
+
+    for produto in produtos:
+        print("-" * 30)
+        print(f"ID: {produto['id']}")
+        print(f"Nome: {produto['nome']}")
+        print(f"Categoria: {produto['categoria']}")
+        print(f"Quantidade: {produto['quantidade']}")
+        print(f"Preço de venda: R$ {produto['preco_venda']}")
+        print(f"Fornecedor: {produto['fornecedor']}")
