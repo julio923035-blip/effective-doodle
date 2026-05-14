@@ -1,0 +1,17 @@
+from produtos import carregar_produtos
+
+
+def relatorio_estoque():
+  produtos = carregar_produtos()
+
+  print('\nRELATÓRIO DE ESTOQUE')
+  print('=' * 40 )
+
+
+for produtos in produtos:
+  print(f'Produtos:  {produto['nome']}')
+  print(f"quantidade: {produto['quantidade']}")
+  print(f'Preço de vendas: r$ {produto['preco_venda']}')
+  print('-' * 40)
+
+  

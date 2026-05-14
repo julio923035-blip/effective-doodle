@@ -1,0 +1,31 @@
+# =========================
+# vendas.py
+# =========================
+
+from produtos import carregar_produtos, salvar_produtos
+
+
+def registrar_venda():
+    produtos = carregar_produtos()
+
+    id_produto = input("Digite o ID do produto: ")
+
+    for produto in produtos:
+        if produto["id"] == id_produto:
+
+            quantidade = int(input("Quantidade vendida: "))
+
+            if quantidade > produto["quantidade"]:
+                print("Estoque insuficiente.")
+                return
+
+            valor_total = quantidade * produto["preco_venda"]
+
+            produto["quantidade"] -= quantidade
+
+            salvar_produtos(produtos)
+
+            print(f"Venda registrada! Total: R$ {valor_total:.2f}")
+            return
+
+    print("Produto não encontrado.")
